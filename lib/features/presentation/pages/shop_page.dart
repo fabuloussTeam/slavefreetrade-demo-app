@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 
+import 'package:webviewloadsite/features/presentation/components/navigation_controls.dart';
+
 class ShopPage extends StatefulWidget {
 
    ShopPage({Key key}) : super(key: key);
@@ -19,9 +21,11 @@ class _ShopPageState extends State<ShopPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(_title),
+          actions: <Widget>[
+            NavigationControls(_controller.future),
+          ],
         ),
         body: _buildWebView(),
-        floatingActionButton: _buildShowUrlBtn(),
     );
   }
 
@@ -45,33 +49,6 @@ class _ShopPageState extends State<ShopPage> {
         });
       },
       child: Icon(Icons.title),
-    );
-  }
-
-  Widget _buildShowUrlBtn(){
-    return FutureBuilder<WebViewController>(
-      future: _controller.future,
-      builder: (BuildContext context, AsyncSnapshot<WebViewController> controller){
-        if (controller.hasData){
-          return FloatingActionButton(
-            onPressed: () async {
-              String url = await controller.data.currentUrl();
-              print("current url is $url");
-              print(controller.data.reload());
-              Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Current url is: $url',
-                    style: TextStyle(fontSize: 20.0),
-                  ),
-                )
-              );
-            },
-            child: Icon(Icons.link, size: 30.0,),
-          );
-        }
-        return Container();
-      },
     );
   }
 }
