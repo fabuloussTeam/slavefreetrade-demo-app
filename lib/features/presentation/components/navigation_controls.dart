@@ -14,55 +14,9 @@ class NavigationControls extends StatelessWidget {
         if (controller.hasData){
           return Row(
             children: <Widget>[
-
-              FlatButton(
-                  child: Row(
-                    children: <Widget>[
-                      Icon(Icons.arrow_left, color: Colors.white,),
-                      Text("back", style: TextStyle(color: Colors.white, fontSize: 25),)
-                    ],
-                  ),
-                onPressed: () async{
-                    if(await controller.data.canGoBack()){
-                        controller.data.goBack();
-                    } else {
-                        Scaffold.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'No back History'
-                            ),
-                          )
-                        );
-                    }
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.refresh),
-                onPressed: (){
-                  controller.data.reload();
-                },
-              ),
-              FlatButton(
-                child: Row(
-                  children: <Widget>[
-                    Text("next", style: TextStyle(color: Colors.white, fontSize: 25)),
-                    Icon(Icons.arrow_right, color: Colors.white,),
-                  ],
-                ),
-                onPressed: () async{
-                  if(await controller.data.canGoForward()){
-                    controller.data.goForward();
-                  } else {
-                    Scaffold.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                              'No forward History'
-                          ),
-                        )
-                    );
-                  }
-                },
-              )
+              _buildBackHistoryBtn(controller, context),
+              _buildRefreshBtn(controller, context),
+              _buildForwardBtn(controller, context)
             ],
           );
         }
@@ -70,4 +24,69 @@ class NavigationControls extends StatelessWidget {
       },
     );
   }
+
+
+  // Button Back History
+  FlatButton _buildBackHistoryBtn(AsyncSnapshot<WebViewController> controller, context){
+    return  FlatButton(
+      textColor: Colors.white,
+      child: Row(
+        children: <Widget>[
+          Icon(Icons.arrow_left, color: Colors.white),
+          Text("back", style: TextStyle(fontSize: 25),)
+        ],
+      ),
+      onPressed: () async{
+        if(await controller.data.canGoBack()){
+          controller.data.goBack();
+        } else {
+          Scaffold.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                    'No back History'
+                ),
+              )
+          );
+        }
+      },
+    );
+  }
+
+  // Button Refresh
+  IconButton _buildRefreshBtn(AsyncSnapshot<WebViewController> controller, context){
+    return IconButton(
+      icon: Icon(Icons.refresh),
+      onPressed: (){
+        controller.data.reload();
+      },
+    );
+  }
+
+  // Button Forward History
+  FlatButton _buildForwardBtn(AsyncSnapshot<WebViewController> controller, context){
+      return  FlatButton(
+        child: Row(
+          children: <Widget>[
+            Text("next", style: TextStyle(color: Colors.white, fontSize: 25)),
+            Icon(Icons.arrow_right, color: Colors.white,),
+          ],
+        ),
+        onPressed: () async{
+          if(await controller.data.canGoForward()){
+            controller.data.goForward();
+          } else {
+            Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                      'No forward History'
+                  ),
+                )
+            );
+          }
+        },
+      );
+  }
+
+
+
 }
