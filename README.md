@@ -1,5 +1,3 @@
-# webviewloadsite
-
 # slavefreetrade Demo App
 
 <table>
