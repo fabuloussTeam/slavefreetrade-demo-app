@@ -15,10 +15,12 @@ class _ShopPageState extends State<ShopPage> {
   String _title = "Himdeve Shop";
 
   final Completer<WebViewController> _controller = Completer<WebViewController>();
+  final globalKey = GlobalKey<ScaffoldState>(); // Used to access to Scaffold when we are outside
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: globalKey,
         appBar: AppBar(
           title: Text(_title),
           actions: <Widget>[
@@ -35,20 +37,30 @@ class _ShopPageState extends State<ShopPage> {
     return WebView(
       javascriptMode: JavascriptMode.unrestricted,
       initialUrl: "https://slavefreetrade.org/",
-      onWebViewCreated: (WebViewController webViewController){
+      onWebViewCreated: (WebViewController webViewController){ // Used for access to controller.data
         _controller.complete(webViewController);
+      },
+      navigationDelegate: (request){ //Manage request from url
+        return _buildNavigationDecision(request);
       },
     );
   }
 
-  Widget _buildChangeTitlebtn(){
-    return FloatingActionButton(
-      onPressed: (){
-        setState((){
-          _title = "promote human rights";
-        });
-      },
-      child: Icon(Icons.title),
-    );
+  // Function to manage a request from url: Exemple of 'donate' link
+  NavigationDecision _buildNavigationDecision(NavigationRequest request){
+    if(request.url.contains('donate')){
+     globalKey.currentState.showSnackBar(
+         SnackBar(
+           content: Text(
+             "You do not have the rigths to access of this",
+             style: TextStyle(fontSize: 20),
+           ),
+         )
+     );
+
+      return NavigationDecision.prevent;
+    }
+
+    return NavigationDecision.navigate;
   }
 }
