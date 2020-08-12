@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'features/presentation/pages/shop_page.dart';
+import 'package:webviewloadsite/features/presentation/pages/main_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.green
         ),
-        home: ShopPage(),
+        home: MainPage(),
       );
   }
 }
