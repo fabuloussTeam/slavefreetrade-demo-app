@@ -1,16 +1,23 @@
-# webviewloadsite
+# slavefreetrade Demo App
 
-Load web site on mobile with webview
+<table>
+<tr>
+<th colspan="2">
+Screenshots
+</th>
+</tr>
 
-## Getting Started
+<tr>
+<td>
+<p align="center">
+<img src="https://github.com/fabuloussTeam/slavefreetrade-demo-app/blob/master/imagesApp/Screenshot_1597233714.png" width="30%" height="30%">
+</p>
+</td>
+<td>
+<p align="center">
+<img src="https://github.com/fabuloussTeam/slavefreetrade-demo-app/blob/master/imagesApp/Screenshot_1597233788.png" width="30%" height="30%">
+</p>
+</td>
+</tr>
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+</table>
