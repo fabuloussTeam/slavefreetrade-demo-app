@@ -3,6 +3,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class NavigationControls extends StatelessWidget {
   final Future<WebViewController> _controllerFuture;
+  final String url = "https://slavefreetrade.org/";
 
   const NavigationControls(this._controllerFuture, {Key key}) : super(key: key);
 
@@ -14,6 +15,7 @@ class NavigationControls extends StatelessWidget {
         if (controller.hasData){
           return Row(
             children: <Widget>[
+              _buildBackAtHomebtn(controller, context),
               _buildBackHistoryBtn(controller, context),
               _buildRefreshBtn(controller, context),
               _buildForwardBtn(controller, context)
@@ -25,6 +27,18 @@ class NavigationControls extends StatelessWidget {
     );
   }
 
+
+  //Build Back at Home
+  IconButton _buildBackAtHomebtn(AsyncSnapshot<WebViewController> controller, context){
+    return IconButton(
+      icon: Icon(Icons.home, color: Colors.white,),
+      onPressed: () async{
+         if(await controller.hasData){
+           controller.data.loadUrl(url);
+         }
+      },
+    );
+  }
 
   // Button Back History
   FlatButton _buildBackHistoryBtn(AsyncSnapshot<WebViewController> controller, context){
@@ -89,4 +103,7 @@ class NavigationControls extends StatelessWidget {
 
 
 
+}
+
+class _buildWebView {
 }
